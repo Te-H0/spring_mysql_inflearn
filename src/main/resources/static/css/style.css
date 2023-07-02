@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: #799090;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    background-color: #f0ece8;
+    padding: 5%;
+    width: 85vw;
+    height: 85vh;
+    overflow: scroll;
+}
+
+.nav {
+    margin-bottom: 3vh;
+}
+
+.nav-tabs > li.active {
+    color: aquamarine;
+}
+
+.nav-tabs {
+    color: black;
+}
+
+.form-control {
+    width: 20vw;
+}
+
+.col-12 {
+    margin: 1vh;
+}
+
+#login-content {
+    margin: 0 auto;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-content {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.jumbotron {
+    margin: 10vh;
+    display: block;
+    background-color: #f0ece8;
+    text-align: center;
+}
+
+.info-jumbotron {
+    margin-top: 15vh;
+    display: block;
+    background-color: #f0ece8;
+    text-align: center;
+}
+
+#main_search {
+    border-radius: 20px;
+    width: 30vw;
+    height: 5vh;
+    text-align: center;
+}
+
+#course_search {
+    border-radius: 5px;
+    width: 10vw;
+    height: 3vh;
+    margin-top: 10px;
+    text-align: center;
+}
+
+th,
+td {
+    text-align: center;
+}
+
+.course_nav {
+    margin-right: auto;
+}
+
+.info-button {
+    padding: 7vh 7vw;
+    font-size: large;
+}
+
+a {
+    text-decoration: none;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="~{head.html :: headFragment}">
+
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div id="main-content" style="margin-top:10vh">
+            <form action="" class=" row g-3" method="post">
+                <div class="col-12">
+                    <label class="form-label" for="name">이름</label>
+                    <input autocomplete="off" class="form-control" name="name" placeholder="이름" required
+                           type="text">
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="login_id">아이디</label>
+                    <input autocomplete="off" class="form-control" name="login_id" placeholder="이메일" required
+                           type="text">
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="pw">비밀 번호</label>
+                    <input autocomplete="off" class="form-control" name="pw" placeholder="이메일" required
+                           type="password">
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="email">이메일</label>
+                    <input autocomplete="off" class="form-control" name="email" placeholder="이메일" required
+                           type="text">
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="age">나이</label>
+                    <input autocomplete="off" class="form-control" name="age" placeholder="나이" required
+                           type="number">
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label" for="address">주소</label>
+                    <input autocomplete="off" class="form-control" name="address" placeholder="주소" required
+                           type="text">
+                </div>
+                <div class="col-12">
+                    <button class=" btn btn-primary" style="width:20vw">!등 록!</button>
+                </div>
+                <div class="col-12">
+                    <a class=" btn btn-primary" href="/login" style="width:20vw">뒤로가기</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

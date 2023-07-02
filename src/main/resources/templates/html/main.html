@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="~{head.html :: headFragment}">
+
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div th:replace="~{nav.html :: navFragment}"></div>
+        <div id="main-content">
+            <div class="jumbotron">INFLEARN</div>
+
+            <form action="course_list.php" method="GET">
+                <input
+                        id="main_search"
+                        name="keyword"
+                        placeholder="배우고 싶은 지식을 입력해보세요."
+                        type="text"
+                />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
