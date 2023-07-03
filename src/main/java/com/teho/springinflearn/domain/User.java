@@ -32,6 +32,7 @@ public class User {
     private String email;
 
     @NotNull
+
     private int age;
 
     @NotNull

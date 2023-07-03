@@ -11,6 +11,6 @@ public interface UserRepository {
 
     List<User> findAll();
 
-    User findByLoginId(Long loginId);
+    User findByLoginId(String loginId);
 
 }

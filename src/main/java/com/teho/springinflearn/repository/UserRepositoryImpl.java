@@ -30,7 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByLoginId(Long loginId) {
+    public User findByLoginId(String loginId) {
         return em.createQuery("select m from User m where m.login_id =:loginId", User.class)
                 .setParameter("loginId", loginId)
                 .getSingleResult();
