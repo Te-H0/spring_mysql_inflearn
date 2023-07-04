@@ -1,8 +1,8 @@
 package com.teho.springinflearn.service;
 
 import com.teho.springinflearn.domain.User;
-import com.teho.springinflearn.dto.UserLoginDTO;
-import com.teho.springinflearn.dto.UserRegistDTO;
+import com.teho.springinflearn.dto.UserLoginForm;
+import com.teho.springinflearn.dto.UserRegistForm;
 import com.teho.springinflearn.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,35 +19,38 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private User dtoToEntity(UserRegistDTO dto) {
+    private User dtoToEntity(UserRegistForm dto) {
         User entity = new User(dto.getName(), dto.getLogin_id(), dto.getPw(),
                 dto.getEmail(), dto.getAge(), dto.getAddress());
 
         return entity;
     }
 
-    public UserLoginDTO login(UserLoginDTO userLoginDTO) {
-        String login_id = userLoginDTO.getLogin_id();
-        User user = userRepository.findByLoginId(login_id);
+    public User login(UserLoginForm userLoginForm) {
+        String login_id = userLoginForm.getLogin_id();
+        Optional<User> byLoginId = userRepository.findByLoginId(login_id);
+
+        if (byLoginId.isEmpty())
+            return null;
+
+        User user = byLoginId.get();
         log.info("서비스에서 찾은 유저의 이름 ==>{}", user.getName());
 
 
-        if (user == null)
+        if (userLoginForm.getPw().equals(user.getPw())) {
+            log.info("비번일치했어!!");
+            userLoginForm.setName(user.getName());
+            return user;
+        } else {
+            log.info("비밀번호 불일치!!");
             return null;
-        else {
-            if (userLoginDTO.getPw().equals(user.getPw())) {
-                log.info("비번일치했어!!");
-                userLoginDTO.setName(user.getName());
-                return userLoginDTO;
-            } else {
-                return null;
-            }
-
         }
+
+
     }
 
     @Transactional
-    public Long join(UserRegistDTO user) {
+    public Long join(UserRegistForm user) {
         User entity = dtoToEntity(user);
         userRepository.save(entity);
 

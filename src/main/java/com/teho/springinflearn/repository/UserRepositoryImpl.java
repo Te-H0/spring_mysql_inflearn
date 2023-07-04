@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,9 +31,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByLoginId(String loginId) {
-        return em.createQuery("select m from User m where m.login_id =:loginId", User.class)
+    public Optional<User> findByLoginId(String loginId) {
+        List<User> loginUserId = em.createQuery("select m from User m where m.login_id =:loginId", User.class)
                 .setParameter("loginId", loginId)
-                .getSingleResult();
+                .getResultList();
+        if (loginUserId.isEmpty())
+            return Optional.empty();
+
+        User loginUser = loginUserId.get(0);
+        return Optional.ofNullable(loginUser);
+
     }
 }

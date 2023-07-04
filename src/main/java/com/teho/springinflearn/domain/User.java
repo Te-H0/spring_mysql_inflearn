@@ -1,6 +1,5 @@
 package com.teho.springinflearn.domain;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,25 +16,22 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(unique = true)
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(unique = true)
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String login_id;
 
-    @NotNull
+    @Column(nullable = false)
     private String pw;
 
-    @NotNull
+    @Column(nullable = false)
     private String email;
 
-    @NotNull
-
+    @Column(nullable = false)
     private int age;
 
-    @NotNull
+    @Column(nullable = false)
     private String address;
 
     @OneToMany(mappedBy = "user")

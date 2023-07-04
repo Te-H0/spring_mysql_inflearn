@@ -3,7 +3,7 @@ package com.teho.springinflearn.dto;
 import lombok.Getter;
 
 @Getter
-public class UserRegistDTO {
+public class UserRegistForm {
 
     private String name;
     private String login_id;
@@ -12,8 +12,8 @@ public class UserRegistDTO {
     private int age;
     private String address;
 
-    public UserRegistDTO(String name, String login_id, String pw,
-                         String email, int age, String address) {
+    public UserRegistForm(String name, String login_id, String pw,
+                          String email, int age, String address) {
         this.name = name;
         this.login_id = login_id;
         this.pw = pw;

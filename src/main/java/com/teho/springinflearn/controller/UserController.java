@@ -1,8 +1,8 @@
 package com.teho.springinflearn.controller;
 
 import com.teho.springinflearn.domain.User;
-import com.teho.springinflearn.dto.UserLoginDTO;
-import com.teho.springinflearn.dto.UserRegistDTO;
+import com.teho.springinflearn.dto.UserLoginForm;
+import com.teho.springinflearn.dto.UserRegistForm;
 import com.teho.springinflearn.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/user/new")
-    public String registUser(@ModelAttribute UserRegistDTO userRegistDTO) {
-        userService.join(userRegistDTO);
+    public String registUser(@ModelAttribute UserRegistForm userRegistForm) {
+        userService.join(userRegistForm);
         return "redirect:/login";
     }
 
@@ -43,24 +43,42 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute UserLoginDTO userLoginDTO, HttpServletRequest request,
-                            RedirectAttributes redirectAttributes) {
+    public String loginUser(@ModelAttribute UserLoginForm userLoginForm, HttpServletRequest request, Model model) {
         log.info("여기!!!!!");
-        UserLoginDTO loginUser = userService.login(userLoginDTO);
-        log.info("login서비스에서 반환된 user 값 {}", loginUser.getName());
-        if (loginUser != null) {
+
+        Optional<User> loginUser = Optional.ofNullable(userService.login(userLoginForm));
+        if (loginUser.isPresent()) {
+            User user = loginUser.get();
+
             log.info("loginuser 받았다");
-            log.info("loginuser 정보 ==>{}", loginUser.getName());
+            log.info("loginuser 정보 ==>{}", user.getName());
             HttpSession session = request.getSession();
             log.info("1");
-            session.setAttribute("loginUser", loginUser);
+            session.setAttribute("loginUser", user);
             log.info("2");
             session.setMaxInactiveInterval(30000);
             log.info("3");
-            redirectAttributes.addAttribute("loginUser", loginUser.getName());
-            log.info("4");
+            model.addAttribute("user", user);
+
+
+            log.info("로그인 성공해서 메인페이지 이동중");
+            return "redirect:/main";
+
+        } else {
+            log.info("User Null이여서 다시 로그인 페이지!");
+            return "/html/login.html";
         }
-        log.info("5");
+
+
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/login";
     }
 

@@ -9,7 +9,7 @@
         <div th:replace="~{nav.html :: navFragment}"></div>
         <div id="main-content">
             <div class="jumbotron">INFLEARN</div>
-
+            <div th:title="${user.name}"></div>
             <form action="course_list.php" method="GET">
                 <input
                         id="main_search"
