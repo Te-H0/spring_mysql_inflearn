@@ -5,20 +5,23 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @NotNull
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
@@ -35,8 +38,20 @@ public class Course {
     @Max(100)
     private int discount;
 
-    @ManyToMany(mappedBy = "courseList")
-    private List<Category> categoryList = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Course(Teacher teacher, String title, int price, int discount) {
+        this.teacher = teacher;
+        this.title = title;
+        this.price = price;
+        this.discount = discount;
+    }
+
+    protected Course() {
+
+    }
 }
 
 

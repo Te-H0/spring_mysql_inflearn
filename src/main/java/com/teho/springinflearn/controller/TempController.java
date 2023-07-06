@@ -1,6 +1,8 @@
 package com.teho.springinflearn.controller;
 
+import com.teho.springinflearn.domain.Course;
 import com.teho.springinflearn.domain.User;
+import com.teho.springinflearn.service.CourseService;
 import com.teho.springinflearn.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class TempController {
 
-    private final UserService userService;
+    private final CourseService courseService;
 
     @GetMapping("/login")
     public String test(@RequestParam(required = false) String loginUser, Model model, HttpServletRequest request) {
@@ -44,6 +48,15 @@ public class TempController {
         model.addAttribute("user", loginUser);
         log.info("user의 이름 {}", loginUser.getName());
         return "/html/main.html";
+    }
+
+    @RequestMapping("/course")
+    public String showCourse(@RequestParam String keyword, Model model) {
+        if (keyword.equals("all")) {
+            List<Course> courseList = courseService.showAllCourse();
+            model.addAttribute("courses", courseList);
+        }
+        return "/html/course.html";
     }
 
 

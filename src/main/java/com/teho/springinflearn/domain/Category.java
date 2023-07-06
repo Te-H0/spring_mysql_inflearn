@@ -14,11 +14,16 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinColumn(name = "course_id")
+    @OneToMany(mappedBy = "category")
     private List<Course> courseList = new ArrayList<>();
 
+    public Category(String name) {
+        this.name = name;
+    }
 
+    protected Category() {
+    }
 }

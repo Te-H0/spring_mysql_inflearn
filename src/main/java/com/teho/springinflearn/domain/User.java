@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +19,7 @@ public class User {
     private String name;
 
     @Column(unique = true, nullable = false)
-    private String login_id;
+    private String loginId;
 
     @Column(nullable = false)
     private String pw;
@@ -40,11 +39,15 @@ public class User {
     public User(String name, String login_id, String pw,
                 String email, int age, String address) {
         this.name = name;
-        this.login_id = login_id;
+        this.loginId = login_id;
         this.pw = pw;
         this.email = email;
         this.age = age;
         this.address = address;
+    }
+
+    protected User() {
+
     }
 }
 /**

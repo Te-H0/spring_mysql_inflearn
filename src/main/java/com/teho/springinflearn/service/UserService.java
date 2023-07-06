@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,19 +27,22 @@ public class UserService {
 
     public User login(UserLoginForm userLoginForm) {
         String login_id = userLoginForm.getLogin_id();
-        Optional<User> byLoginId = userRepository.findByLoginId(login_id);
+        log.info("여기냐1");
 
-        if (byLoginId.isEmpty())
+        User loginUser = userRepository.findByLoginId(login_id);
+
+        log.info("여기냐2");
+        if (loginUser == null)
             return null;
 
-        User user = byLoginId.get();
-        log.info("서비스에서 찾은 유저의 이름 ==>{}", user.getName());
+
+        log.info("서비스에서 찾은 유저의 이름 ==>{}", loginUser.getName());
 
 
-        if (userLoginForm.getPw().equals(user.getPw())) {
+        if (userLoginForm.getPw().equals(loginUser.getPw())) {
             log.info("비번일치했어!!");
-            userLoginForm.setName(user.getName());
-            return user;
+            userLoginForm.setName(loginUser.getName());
+            return loginUser;
         } else {
             log.info("비밀번호 불일치!!");
             return null;
@@ -53,7 +55,6 @@ public class UserService {
     public Long join(UserRegistForm user) {
         User entity = dtoToEntity(user);
         userRepository.save(entity);
-
         return entity.getId();
     }
 

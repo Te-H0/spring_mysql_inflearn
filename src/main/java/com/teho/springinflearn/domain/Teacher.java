@@ -12,10 +12,12 @@ import java.util.List;
 @Data
 public class Teacher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
     private Long id;
 
+    @NotNull
+    private String name;
     @Email(message = "이메일 형태를 적어주세요~!")
     @NotNull
     private String email;
@@ -25,6 +27,15 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher")
     private List<Course> courseList = new ArrayList<>();
+
+    protected Teacher() {
+    }
+
+    public Teacher(String name, String email, int career) {
+        this.name = name;
+        this.email = email;
+        this.career = career;
+    }
 }
 /**
  * CREATE TABLE Teacher(
