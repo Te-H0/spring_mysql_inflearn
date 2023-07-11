@@ -1,7 +1,12 @@
 package com.teho.springinflearn.controller;
 
+import com.teho.springinflearn.domain.Category;
 import com.teho.springinflearn.domain.Course;
+import com.teho.springinflearn.domain.Enrollment;
 import com.teho.springinflearn.domain.User;
+import com.teho.springinflearn.repository.CategoryRepository;
+import com.teho.springinflearn.repository.CourseRepository;
+import com.teho.springinflearn.repository.EnrollmentRepository;
 import com.teho.springinflearn.service.CourseService;
 import com.teho.springinflearn.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,9 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,6 +29,9 @@ import java.util.List;
 public class TempController {
 
     private final CourseService courseService;
+    private final CourseRepository courseRepository;
+    private final CategoryRepository categoryRepository;
+    private final EnrollmentRepository enrollmentRepository;
 
     @GetMapping("/login")
     public String test(@RequestParam(required = false) String loginUser, Model model, HttpServletRequest request) {
@@ -51,13 +61,59 @@ public class TempController {
     }
 
     @RequestMapping("/course")
-    public String showCourse(@RequestParam String keyword, Model model) {
-        if (keyword.equals("all")) {
-            List<Course> courseList = courseService.showAllCourse();
-            model.addAttribute("courses", courseList);
+    public String showCourse(@RequestParam String keyword, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
         }
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "/html/login.html";
+        }
+
+        model.addAttribute("user", loginUser);
+
+        List<Course> courseList;
+        if (keyword.equals("all")) {
+            courseList = courseService.showAllCourse();
+
+        } else {
+            courseList = courseService.findCoursesByCategory(keyword);
+        }
+        model.addAttribute("courses", courseList);
+        List<Category> categoryList = categoryRepository.findAll();
+
+        model.addAttribute("categoryList", categoryList);
         return "/html/course.html";
     }
 
+    @RequestMapping("/myinfo")
+    public String info(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        User loginUser = (User) session.getAttribute("loginUser");
+        model.addAttribute("user", loginUser);
+        return "/html/myinfo.html";
+    }
 
+    @RequestMapping("/course/enroll/{courseId}")
+    public String enroll(@PathVariable Long courseId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        User loginUser = (User) session.getAttribute("loginUser");
+        Course course = courseRepository.findById(courseId).get();
+
+        Enrollment enrollment = new Enrollment(loginUser, course);
+
+        int discount = course.getDiscount();
+        int price = course.getPrice();
+        int salePrice = price * (discount / 100);
+
+        enrollment.setPrice(salePrice);
+
+        enrollmentRepository.save(enrollment);
+
+        return "redirect:/course?keyword=all";
+
+
+    }
 }

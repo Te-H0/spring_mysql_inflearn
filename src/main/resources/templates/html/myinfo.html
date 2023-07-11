@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="~{head.html :: headFragment}">
+
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div th:replace="~{nav.html :: navFragment}"></div>
+        <div class="jumbotron info-jumbotron">
+            <a class="btn btn-primary info-button" href="edit_profile" role="button"> 정보 수정</a>
+            <a class="btn btn-primary info-button" href="mycourse.php" role="button">수강 내역</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

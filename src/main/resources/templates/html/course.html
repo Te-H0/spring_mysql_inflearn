@@ -6,11 +6,11 @@
 <body>
 <div class="container">
     <div class="content">
-
+        <div th:replace="~{nav.html :: navFragment}"></div>
         <div class='course_nav'>
             <ul class='nav nav-pills'>
                 <li class='' role='presentation'>
-                    <form action='course_list.php' method='get'>
+                    <form action='' method='get'>
                         <input
                                 id='course_search'
                                 name='keyword'
@@ -18,19 +18,8 @@
                                 type='text'>
                     </form>
                 </li>
-                <li role='presentation'><a href='course_list.php?keyword=java'>java</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=spring'>spring</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=mvc'>mvc</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=backend'>backend</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=springboot'>springboot</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=network'>network</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=c'>c</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=figma'>figma</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=html'>html</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=css'>css</a></li>
-                <li role='presentation'><a href='course_list.php?keyword=nodejs'>nodejs</a></li>
-                <li class='' role='presentation'><a href='course_list.php?keyword=python'>python</a></li>
-
+                <li role='presentation' th:each="category:${categoryList}"><a
+                        th:href="|course?keyword=${category.name}|" th:text="${category.name}">java</a></li>
             </ul>
         </div>
         <table class='table'>
@@ -48,10 +37,10 @@
             <tr th:each="course, i : ${courses}">
                 <th scope='row' th:text="${i.count}">$n</th>
                 <td th:text="${course.title}">title</td>
-                <td th:text="${course.teacher}">teacher</td>
-                <td th:text="${course.category}">category</td>
+                <td th:text="${course.teacher.name}">teacher</td>
+                <td th:text="${course.category.name}">category</td>
                 <td th:text="${course.price}">price</td>
-                <td><a href=enroll.php?CourseID=course_id&&UserID=user_id&&price=$price type='button'>신청</a></td>
+                <td><a th:href="@{|course/enroll/${course.id}|}" type='button'>신청</a></td>
             </tr>
 
             </tbody>

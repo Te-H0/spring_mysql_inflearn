@@ -22,7 +22,7 @@
 
             <tr th:each="user, i : ${users}">
                 <th scope='row' th:text="${i.count}">#</th>
-                <td th:text="${user.login_id}">아이디</td>
+                <td th:text="${user.loginId}">아이디</td>
                 <td th:text="${user.name}">이름</td>
                 <td th:text="${user.email}">이메일</td>
                 <td th:text="${user.age}">나이</td>
