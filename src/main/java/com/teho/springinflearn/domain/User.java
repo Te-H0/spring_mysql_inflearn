@@ -28,7 +28,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private int age;
+    private Integer age;
 
     @Column(nullable = false)
     private String address;
@@ -37,7 +37,7 @@ public class User {
     private List<Enrollment> enrollmentList = new ArrayList<>();
 
     public User(String name, String login_id, String pw,
-                String email, int age, String address) {
+                String email, Integer age, String address) {
         this.name = name;
         this.loginId = login_id;
         this.pw = pw;

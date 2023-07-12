@@ -3,6 +3,7 @@ package com.teho.springinflearn.service;
 import com.teho.springinflearn.domain.User;
 import com.teho.springinflearn.dto.UserLoginForm;
 import com.teho.springinflearn.dto.UserRegistForm;
+import com.teho.springinflearn.dto.UserUpdateForm;
 import com.teho.springinflearn.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,16 @@ public class UserService {
         User entity = dtoToEntity(user);
         userRepository.save(entity);
         return entity.getId();
+    }
+
+    @Transactional
+    public User updateUser(UserUpdateForm userUpdateForm, User user) {
+
+        user.setName(userUpdateForm.getName());
+        user.setEmail(userUpdateForm.getEmail());
+        user.setAddress(userUpdateForm.getAddress());
+
+        return user;
     }
 
     public List<User> showUsers() {

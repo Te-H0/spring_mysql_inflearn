@@ -4,9 +4,12 @@ import com.teho.springinflearn.domain.Category;
 import com.teho.springinflearn.domain.Course;
 import com.teho.springinflearn.domain.Enrollment;
 import com.teho.springinflearn.domain.User;
+import com.teho.springinflearn.dto.UserRegistForm;
+import com.teho.springinflearn.dto.UserUpdateForm;
 import com.teho.springinflearn.repository.CategoryRepository;
 import com.teho.springinflearn.repository.CourseRepository;
 import com.teho.springinflearn.repository.EnrollmentRepository;
+import com.teho.springinflearn.repository.UserRepository;
 import com.teho.springinflearn.service.CourseService;
 import com.teho.springinflearn.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,6 +31,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TempController {
 
+    private final UserRepository userRepository;
+    private final UserService userService;
     private final CourseService courseService;
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
@@ -141,5 +147,36 @@ public class TempController {
         return "/html/myinfo.html";
     }
 
+    @RequestMapping("/editProfile")
+    public String editProfile(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        }
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "/html/login.html";
+        }
+        model.addAttribute("user", loginUser);
 
+        return "/html/editProfile.html";
+    }
+
+    @PostMapping("/editProfile")
+    public String updateProfile(HttpServletRequest request, @ModelAttribute UserUpdateForm user) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        }
+        User loginUser = (User) session.getAttribute("loginUser");
+        User nowUser = userRepository.findById(loginUser.getId()).get();
+        log.info("update할 유저의 정보 {}", loginUser.getId());
+        if (loginUser == null) {
+            return "/html/login.html";
+        }
+        User updatedUser = userService.updateUser(user, nowUser);
+
+        session.setAttribute("loginUser", updatedUser);
+        return "redirect:/myinfo";
+    }
 }
