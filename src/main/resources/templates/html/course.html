@@ -22,6 +22,7 @@
                         th:href="|course?keyword=${category.name}|" th:text="${category.name}">java</a></li>
             </ul>
         </div>
+
         <table class='table'>
             <thead>
             <tr>
@@ -35,18 +36,23 @@
             </thead>
             <tbody>
             <tr th:each="course, i : ${courses}">
+
                 <th scope='row' th:text="${i.count}">$n</th>
                 <td th:text="${course.title}">title</td>
                 <td th:text="${course.teacher.name}">teacher</td>
                 <td th:text="${course.category.name}">category</td>
-                <td th:text="${course.price}">price</td>
-                <td><a th:href="@{|course/enroll/${course.id}|}" type='button'>신청</a></td>
+                <td th:text="${course.price * ( 1 -course.discount * 0.01 )}">price</td>
+                <td>
+                    <form action="enroll" method="post">
+                        <input name="courseId" th:value="${course.id}" type="hidden">
+                        <input name="price" th:value="${course.price * ( 1 -course.discount * 0.01 )}" type="hidden">
+                        <button>신청</button>
+                    </form>
+                </td>
             </tr>
-
             </tbody>
-
-
         </table>
+
     </div>
 </div>
 </body>

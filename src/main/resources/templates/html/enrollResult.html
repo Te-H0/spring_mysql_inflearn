@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="~{head.html :: headFragment}">
+
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div th:replace="~{nav.html :: navFragment}"></div>
+        <div class="jumbotron info-jumbotron">
+            <h3 th:text="${message}"></h3>
+            <a onclick="history.back()">Back</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

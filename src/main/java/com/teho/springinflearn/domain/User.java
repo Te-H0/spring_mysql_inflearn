@@ -50,13 +50,3 @@ public class User {
 
     }
 }
-/**
- * CREATE TABLE User(
- * user_id INT AUTO_INCREMENT PRIMARY KEY,
- * name VARCHAR(20) NOT NULL UNIQUE,
- * email VARCHAR(60) NOT NULL,
- * age INT NOT NULL,
- * address VARCHAR(60) NOT NULL,
- * login BOOLEAN DEFAULT 0
- * );
- */
