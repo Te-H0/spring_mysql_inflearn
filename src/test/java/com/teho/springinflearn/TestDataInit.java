@@ -36,17 +36,58 @@ public class TestDataInit {
     @Test
     @Transactional
     @Rollback(value = false)
+    void setCategoryData() {
+        List<Category> categoryList = new ArrayList<>();
+        categoryList.add(new Category("spring"));
+        categoryList.add(new Category("backend"));
+        categoryList.add(new Category("c"));
+        categoryList.add(new Category("css"));
+        categoryList.add(new Category("figma"));
+        categoryList.add(new Category("html"));
+        categoryList.add(new Category("java"));
+        categoryList.add(new Category("mvc"));
+        categoryList.add((new Category("network")));
+        categoryList.add((new Category("nodejs")));
+        categoryList.add((new Category("python")));
+        categoryList.add((new Category("springboot")));
+
+        categoryRepository.saveAll(categoryList);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void setTeacherData() {
+        List<Teacher> teacherList = new ArrayList<>();
+
+        teacherList.add(new Teacher("김영한", "younghan@asd.com", 7));
+        teacherList.add(new Teacher("널널한 개발자", "freedeveloper@qwer.com", 3));
+        teacherList.add(new Teacher("토비", "tobi@naver.com", 1));
+        teacherList.add(new Teacher("범쌤", "tiger@zxcv.com", 4));
+        teacherList.add(new Teacher("코딩웍스", "codingworks@flsl.com", 2));
+        teacherList.add(new Teacher("얄팍한 코딩사전", "zxcvaw@daum.net", 5));
+        teacherList.add(new Teacher("조코딩", "jocoding@gmail.com", 2));
+        teacherList.add(new Teacher("코드캠프", "codecamp@inu.ac.kr", 6));
+        teacherList.add(new Teacher("김태원", "kim23422@asdf.com", 9));
+        teacherList.add(new Teacher("인프런", "inflearn@inflearn.com", 12));
+
+        teacherRepository.saveAll(teacherList);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
     void setCourseData() {
         Teacher kim = teacherRepository.findByName("김영한");
-        Teacher inf = teacherRepository.findById(2L).get();
-        Teacher free = teacherRepository.findById(3L).get();
-        Teacher tobi = teacherRepository.findById(4L).get();
-        Teacher tiger = teacherRepository.findById(5L).get();
-        Teacher coding = teacherRepository.findById(6L).get();
-        Teacher dict = teacherRepository.findById(7L).get();
-        Teacher jo = teacherRepository.findById(8L).get();
-        Teacher camp = teacherRepository.findById(9L).get();
-        Teacher taewon = teacherRepository.findById(10L).get();
+        Teacher inf = teacherRepository.findByName("인프런");
+        Teacher free = teacherRepository.findByName("널널한 개발자");
+        Teacher tobi = teacherRepository.findByName("토비");
+        Teacher tiger = teacherRepository.findByName("범쌤");
+        Teacher coding = teacherRepository.findByName("코딩웍스");
+        Teacher dict = teacherRepository.findByName("얄팍한 코딩사전");
+        Teacher jo = teacherRepository.findByName("조코딩");
+        Teacher camp = teacherRepository.findByName("코드캠프");
+        Teacher taewon = teacherRepository.findByName("김태원");
 
         List<Course> courseList = new ArrayList<>();
         courseList.add(new Course(kim, "스프링 핵심 원리 - 기본편", 88000, 25));
@@ -74,38 +115,38 @@ public class TestDataInit {
     @Transactional
     @Rollback(value = false)
     void mappingCategory() {
-        Category spring = categoryRepository.findById(1L).get();
-        Category backend = categoryRepository.findById(9L).get();
-        Category c = categoryRepository.findById(12L).get();
-        Category css = categoryRepository.findById(15L).get();
-        Category figma = categoryRepository.findById(13L).get();
-        Category html = categoryRepository.findById(14L).get();
-        Category java = categoryRepository.findById(7L).get();
-        Category mvc = categoryRepository.findById(8L).get();
-        Category network = categoryRepository.findById(11L).get();
-        Category nodejs = categoryRepository.findById(16L).get();
-        Category python = categoryRepository.findById(17L).get();
-        Category springboot = categoryRepository.findById(10L).get();
-        courseRepository.findById(1L).get().setCategory(spring);
-        courseRepository.findById(2L).get().setCategory(spring);
-        courseRepository.findById(3L).get().setCategory(spring);
-        courseRepository.findById(4L).get().setCategory(springboot);
-        courseRepository.findById(5L).get().setCategory(network);
-        courseRepository.findById(6L).get().setCategory(network);
-        courseRepository.findById(7L).get().setCategory(network);
-        courseRepository.findById(8L).get().setCategory(c);
-        courseRepository.findById(9L).get().setCategory(springboot);
-        courseRepository.findById(10L).get().setCategory(figma);
-        courseRepository.findById(11L).get().setCategory(figma);
-        courseRepository.findById(12L).get().setCategory(css);
-        courseRepository.findById(13L).get().setCategory(html);
-        courseRepository.findById(14L).get().setCategory(html);
-        courseRepository.findById(15L).get().setCategory(backend);
-        courseRepository.findById(16L).get().setCategory(nodejs);
-        courseRepository.findById(17L).get().setCategory(java);
-        courseRepository.findById(18L).get().setCategory(python);
-        courseRepository.findById(19L).get().setCategory(python);
-        courseRepository.findById(20L).get().setCategory(mvc);
+        Category spring = categoryRepository.findByName("spring");
+        Category backend = categoryRepository.findByName("backend");
+        Category c = categoryRepository.findByName("c");
+        Category css = categoryRepository.findByName("css");
+        Category figma = categoryRepository.findByName("figma");
+        Category html = categoryRepository.findByName("html");
+        Category java = categoryRepository.findByName("java");
+        Category mvc = categoryRepository.findByName("mvc");
+        Category network = categoryRepository.findByName("network");
+        Category nodejs = categoryRepository.findByName("nodejs");
+        Category python = categoryRepository.findByName("python");
+        Category springboot = categoryRepository.findByName("springboot");
+
+        courseRepository.findByTitle("스프링 핵심 원리 - 기본편").setCategory(spring);
+        courseRepository.findByTitle("스프링 핵심 원리 - 고급편").setCategory(spring);
+        courseRepository.findByTitle("스프링 부트 - 핵심 원리와 활용").setCategory(spring);
+        courseRepository.findByTitle("토비의 스프링 부트 - 이해와 원리").setCategory(springboot);
+        courseRepository.findByTitle("외워서 끝내는 네트워크 핵심이론 - 기초").setCategory(network);
+        courseRepository.findByTitle("외워서 끝내는 네트워크 핵심이론 - 응용").setCategory(network);
+        courseRepository.findByTitle("모든 개발자를 위한 HTTP 웹 기본 지식").setCategory(network);
+        courseRepository.findByTitle("독하게 되새기는 C 프로그래밍").setCategory(c);
+        courseRepository.findByTitle("디자인 시스템 with 피그마").setCategory(figma);
+        courseRepository.findByTitle("모바엘 웹 퍼블리싱 포트폴리오 with Figma").setCategory(figma);
+        courseRepository.findByTitle("최고의 프론트엔드 CSS Frameworks, Uikit").setCategory(css);
+        courseRepository.findByTitle("제대로 파는 HTML CSS - by 얄코").setCategory(html);
+        courseRepository.findByTitle("강력한 CSS").setCategory(css);
+        courseRepository.findByTitle("부트캠프에서 만든 고농축 백엔드 코스").setCategory(backend);
+        courseRepository.findByTitle("조코딩의 코딩 기초와 웹 풀스택 개발").setCategory(nodejs);
+        courseRepository.findByTitle("자바(JAVA) 알고리즘 문제풀이 입문: 코딩테스트 대비").setCategory(java);
+        courseRepository.findByTitle("프로그래밍 시작하기 : 파이썬 입문 (Inflearn Original)").setCategory(python);
+        courseRepository.findByTitle("우리를 위한 프로그래밍 : 파이썬 중급 (Inflearn Original)").setCategory(python);
+
 
     }
 }
