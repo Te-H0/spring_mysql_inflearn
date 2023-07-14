@@ -179,4 +179,28 @@ public class TempController {
         session.setAttribute("loginUser", updatedUser);
         return "redirect:/myinfo";
     }
+
+    @GetMapping("/myCourse")
+    public String myCourse(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        }
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "/html/login.html";
+        }
+        model.addAttribute("user", loginUser);
+
+        List<Enrollment> enrollList = enrollmentRepository.findByUser(loginUser);
+        model.addAttribute("enrollments", enrollList);
+        return "/html/myCourse.html";
+    }
+
+    @PostMapping("/myCourse")
+    public String cancelCourse(@RequestParam Long enrollId, HttpServletRequest request, Model model) {
+        Enrollment enroll = enrollmentRepository.findById(enrollId).get();
+        enrollmentRepository.delete(enroll);
+        return "redirect:/myCourse";
+    }
 }

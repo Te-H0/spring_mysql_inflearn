@@ -1,6 +1,7 @@
 package com.teho.springinflearn.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,22 +16,24 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
+    @NotNull
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
+    @NotNull
     private String loginId;
 
-    @Column(nullable = false)
+    @NotNull
     private String pw;
 
-    @Column(nullable = false)
+    @NotNull
     private String email;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer age;
 
-    @Column(nullable = false)
+    @NotNull
     private String address;
 
     @OneToMany(mappedBy = "user")

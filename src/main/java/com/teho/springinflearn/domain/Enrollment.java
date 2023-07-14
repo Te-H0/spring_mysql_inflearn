@@ -1,6 +1,7 @@
 package com.teho.springinflearn.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,15 +19,20 @@ public class Enrollment {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @NotNull
     private Course course;
 
+
+    @NotNull
     private int price;
 
     @CreatedDate
+    @NotNull
     private LocalDateTime enroll_date;
 
     public Enrollment() {

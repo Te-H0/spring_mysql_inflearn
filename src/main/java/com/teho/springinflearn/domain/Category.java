@@ -1,6 +1,7 @@
 package com.teho.springinflearn.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Category {
     private Long id;
 
     @Column(unique = true)
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "category")

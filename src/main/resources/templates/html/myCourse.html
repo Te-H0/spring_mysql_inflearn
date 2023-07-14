@@ -1,10 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="~{head.html :: headFragment}">
+
 </head>
 <body>
-$END$
+<div class="container">
+    <div class="content">
+        <div th:replace="~{nav.html :: navFragment}"></div>
+        <div class='course_nav'>
+            <ul class='nav nav-pills'>
+                <li class='' role='presentation'>
+                    <form action='' method='get'>
+                        <input
+                                id='course_search'
+                                name='keyword'
+                                placeholder='기술 검색'
+                                type='text'>
+                    </form>
+                </li>
+                <li role='presentation' th:each="category:${categoryList}"><a
+                        th:href="|course?keyword=${category.name}|" th:text="${category.name}">java</a></li>
+            </ul>
+        </div>
+
+        <table class='table'>
+            <thead>
+            <tr>
+                <th scope='col'>#</th>
+                <th scope='col'>강좌명</th>
+                <th scope='col'>강사</th>
+                <th scope='col'>카테고리</th>
+                <th scope='col'>구매 가격</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="enroll, i : ${enrollments}">
+
+                <th scope='row' th:text="${i.count}">$n</th>
+                <td th:text="${enroll.course.title}">title</td>
+                <td th:text="${enroll.course.teacher.name}">teacher</td>
+                <td th:text="${enroll.course.category.name}">category</td>
+                <td th:text="${enroll.price}">price</td>
+                <td>
+                    <form action="" method="post">
+                        <input name="enrollId" th:value="${enroll.id}" type="hidden">
+                        <button>수강 취소</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
 </body>
 </html>
