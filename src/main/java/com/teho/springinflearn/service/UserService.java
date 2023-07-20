@@ -52,7 +52,7 @@ public class UserService {
 
     }
 
-    @Transactional
+    //    @Transactional
     public Long join(UserRegistForm user) {
         User entity = dtoToEntity(user);
         userRepository.save(entity);
