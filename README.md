@@ -32,7 +32,7 @@ php로 개발할 때는 Category와 Course가 다대다 양방향이였지만 �
   [@Column(nullable = false)를 @NotNull로 수정](https://te-ho.tistory.com/54)
 - 23-07-20
 
-  필요없는 @Transactional 제거
+  [필요없는 @Transactional 제거](https://te-ho.tistory.com/59)
 
 
 
