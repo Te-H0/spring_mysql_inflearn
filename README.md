@@ -1,10 +1,10 @@
-# spring_mysql_inflearn
-php로 만든 과제 스프링 부트, jpa,  mysql 사용해서 바꿔보기
-### 프로젝트 소개
+# 🧑🏻‍💻 spring_mysql_inflearn
+
+### 🧑🏻‍🏫 프로젝트 소개
 학교 과제에서 php로 만든 인프런 클론 코딩을 spring, springboot, jpa, mysql을 사용해 다시 만들기. 
 
 지금까지 공부했던 spring, jpa 기술을 직접 사용해보며 이해하는 것이 주요 목적. 사실상 CRUD 연습일수도 있지만 여러 기술을 사용해 볼 것이다.
-### 주요 기능
+### 🔨 주요 기능
 - 회원 가입
 - 로그인
 - 세션 유지
@@ -14,16 +14,18 @@ php로 만든 과제 스프링 부트, jpa,  mysql 사용해서 바꿔보기
 - 수강 정보 조회
 - 로그아웃
 - 추가 예정..
-### 계획
+### 🔭 계획
 매우 거칠게 기능만 완성시킨 후 인강, 책, 구글링을 통해 리팩토링 및 기능 추가를 할 것 이다. 
 
 우당탕탕 코딩하여 디렉토리 정리조차 되지 않았다. 가독성 역시 0,,, 조금씩 고쳐나가며 그 과정들을 [블로그](https://te-ho.tistory.com/category/Mini_Tiny_Project/inflearn_clone%3F)에 기록할 예정이다. 
 
-### 기본 구조
+### 🧬 기본 구조
 <img width="993" alt="image" src="https://github.com/Te-H0/spring_mysql_inflearn/assets/54144849/5c5e5769-669e-41c8-b15c-e6dcd7577f76">
 php로 개발할 때는 Category와 Course가 다대다 양방향이였지만 지금은 다대일 양방향이다. 추후 다대다 관계를 풀어서 엔티티를 추가 할 예정이다. 또한 질문 게시판, 댓글 기능들을 추가할 경우 엔티티는 더 수정될 계획이다.
 
-### 수정 일지
+
+---
+### 🗣️ 수정 일지
 - 23-07-02 ~ 23-07-12
   
   [베타 버전 완성](https://te-ho.tistory.com/53)
