@@ -5,12 +5,14 @@ import com.teho.springinflearn.dto.UserLoginForm;
 import com.teho.springinflearn.dto.UserRegistForm;
 import com.teho.springinflearn.dto.UserUpdateForm;
 import com.teho.springinflearn.repository.UserRepository;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,10 @@ public class UserService {
                 dto.getEmail(), dto.getAge(), dto.getAddress());
 
         return entity;
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     public User login(UserLoginForm userLoginForm) {

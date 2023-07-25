@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -18,6 +19,11 @@ import java.util.List;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
+
+    public Course getCourseById(Long id) {
+        Optional<Course> courseOptional = courseRepository.findById(id);
+        return courseOptional.orElse(null);
+    }
 
     public List<Course> showAllCourse() {
 

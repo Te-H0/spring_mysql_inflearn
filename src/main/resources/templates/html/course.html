@@ -43,7 +43,7 @@
                 <td th:text="${course.category.name}">category</td>
                 <td th:text="${course.price * ( 1 -course.discount * 0.01 )}">price</td>
                 <td>
-                    <form action="enroll" method="post">
+                    <form action="/course/enroll" method="post">
                         <input name="courseId" th:value="${course.id}" type="hidden">
                         <input name="price" th:value="${course.price * ( 1 -course.discount * 0.01 )}" type="hidden">
                         <button>신청</button>
