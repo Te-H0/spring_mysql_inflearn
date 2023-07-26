@@ -31,7 +31,7 @@ public class CourseController {
     private final CategoryRepository categoryRepository;
 
     @GetMapping
-    public String showCourse(@RequestParam String keyword, Model model, HttpServletRequest request) {
+    public String showCourse(@RequestParam(defaultValue = "all") String keyword, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return "redirect:/login";
@@ -47,6 +47,7 @@ public class CourseController {
         model.addAttribute("categoryList", categoryList);
 
         List<Course> courseList;
+        log.info("course keyword ={}", keyword);
         if (keyword.equals("all")) {
             courseList = courseService.showAllCourse();
 
@@ -101,7 +102,7 @@ public class CourseController {
         if (loginUser == null) {
             return "/html/login.html";
         }
-        
+
         model.addAttribute("user", loginUser);
         model.addAttribute("message", message);
         return "/html/enrollResult";
