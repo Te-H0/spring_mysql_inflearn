@@ -9,20 +9,11 @@
         <div th:replace="~{nav.html :: navFragment}"></div>
         <div class="jumbotron info-jumbotron">
             <h1>ERROR!!!!!!</h1>
-            <button onclick="refreshPage()">뒤로가기</button>
+            <!--            <button onclick="refreshPage()">뒤로가기</button>-->
+            <a href="/main">HOME으로 이동</a>
         </div>
     </div>
 </div>
-<script>
-    function refreshPage() {
-        // 뒤로 가기 이벤트를 발생시키기 위해 먼저 페이지를 뒤로 가게 한 뒤,
-        // 새로고침을 수행합니다.
-        history.back();
-        
-        setTimeout(function () {
-            location.reload();
-        }, 1000); // 1초 뒤에 새로고침 실행
-    }
-</script>
+
 </body>
 </html>
