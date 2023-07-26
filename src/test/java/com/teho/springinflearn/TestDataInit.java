@@ -128,24 +128,24 @@ public class TestDataInit {
         Category python = categoryRepository.findByName("python");
         Category springboot = categoryRepository.findByName("springboot");
 
-        courseRepository.findByTitle("스프링 핵심 원리 - 기본편").setCategory(spring);
-        courseRepository.findByTitle("스프링 핵심 원리 - 고급편").setCategory(spring);
-        courseRepository.findByTitle("스프링 부트 - 핵심 원리와 활용").setCategory(spring);
-        courseRepository.findByTitle("토비의 스프링 부트 - 이해와 원리").setCategory(springboot);
-        courseRepository.findByTitle("외워서 끝내는 네트워크 핵심이론 - 기초").setCategory(network);
-        courseRepository.findByTitle("외워서 끝내는 네트워크 핵심이론 - 응용").setCategory(network);
-        courseRepository.findByTitle("모든 개발자를 위한 HTTP 웹 기본 지식").setCategory(network);
-        courseRepository.findByTitle("독하게 되새기는 C 프로그래밍").setCategory(c);
-        courseRepository.findByTitle("디자인 시스템 with 피그마").setCategory(figma);
-        courseRepository.findByTitle("모바엘 웹 퍼블리싱 포트폴리오 with Figma").setCategory(figma);
-        courseRepository.findByTitle("최고의 프론트엔드 CSS Frameworks, Uikit").setCategory(css);
-        courseRepository.findByTitle("제대로 파는 HTML CSS - by 얄코").setCategory(html);
-        courseRepository.findByTitle("강력한 CSS").setCategory(css);
-        courseRepository.findByTitle("부트캠프에서 만든 고농축 백엔드 코스").setCategory(backend);
-        courseRepository.findByTitle("조코딩의 코딩 기초와 웹 풀스택 개발").setCategory(nodejs);
-        courseRepository.findByTitle("자바(JAVA) 알고리즘 문제풀이 입문: 코딩테스트 대비").setCategory(java);
-        courseRepository.findByTitle("프로그래밍 시작하기 : 파이썬 입문 (Inflearn Original)").setCategory(python);
-        courseRepository.findByTitle("우리를 위한 프로그래밍 : 파이썬 중급 (Inflearn Original)").setCategory(python);
+        courseRepository.findByTitle("스프링 핵심 원리 - 기본편").getCategoryList().add(spring);
+        courseRepository.findByTitle("스프링 핵심 원리 - 고급편").getCategoryList().add(spring);
+        courseRepository.findByTitle("스프링 부트 - 핵심 원리와 활용").getCategoryList().add(spring);
+        courseRepository.findByTitle("토비의 스프링 부트 - 이해와 원리").getCategoryList().add(springboot);
+        courseRepository.findByTitle("외워서 끝내는 네트워크 핵심이론 - 기초").getCategoryList().add(network);
+        courseRepository.findByTitle("외워서 끝내는 네트워크 핵심이론 - 응용").getCategoryList().add(network);
+        courseRepository.findByTitle("모든 개발자를 위한 HTTP 웹 기본 지식").getCategoryList().add(network);
+        courseRepository.findByTitle("독하게 되새기는 C 프로그래밍").getCategoryList().add(c);
+        courseRepository.findByTitle("디자인 시스템 with 피그마").getCategoryList().add(figma);
+        courseRepository.findByTitle("모바엘 웹 퍼블리싱 포트폴리오 with Figma").getCategoryList().add(figma);
+        courseRepository.findByTitle("최고의 프론트엔드 CSS Frameworks, Uikit").getCategoryList().add(css);
+        courseRepository.findByTitle("제대로 파는 HTML CSS - by 얄코").getCategoryList().add(html);
+        courseRepository.findByTitle("강력한 CSS").getCategoryList().add(css);
+        courseRepository.findByTitle("부트캠프에서 만든 고농축 백엔드 코스").getCategoryList().add(backend);
+        courseRepository.findByTitle("조코딩의 코딩 기초와 웹 풀스택 개발").getCategoryList().add(nodejs);
+        courseRepository.findByTitle("자바(JAVA) 알고리즘 문제풀이 입문: 코딩테스트 대비").getCategoryList().add(java);
+        courseRepository.findByTitle("프로그래밍 시작하기 : 파이썬 입문 (Inflearn Original)").getCategoryList().add(python);
+        courseRepository.findByTitle("우리를 위한 프로그래밍 : 파이썬 중급 (Inflearn Original)").getCategoryList().add(python);
 
 
     }

@@ -19,7 +19,7 @@ public class Category {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "categoryList")
     private List<Course> courseList = new ArrayList<>();
 
     public Category(String name) {

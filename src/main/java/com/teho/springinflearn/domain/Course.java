@@ -38,9 +38,11 @@ public class Course {
     @Max(100)
     private int discount;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "COURSE_CATEGORY",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categoryList = new ArrayList<>();
 
     public Course(Teacher teacher, String title, int price, int discount) {
         this.teacher = teacher;

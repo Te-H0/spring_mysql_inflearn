@@ -32,7 +32,7 @@ public class CourseService {
 
     public List<Course> findCoursesByCategory(String category) {
         Category nowCategory = categoryRepository.findByName(category);
-        return courseRepository.findAllByCategory(nowCategory);
+        return courseRepository.findAllByCategoryList(nowCategory);
 
     }
 
