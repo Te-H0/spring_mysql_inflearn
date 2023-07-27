@@ -40,7 +40,12 @@
                 <th scope='row' th:text="${i.count}">$n</th>
                 <td th:text="${enroll.course.title}">title</td>
                 <td th:text="${enroll.course.teacher.name}">teacher</td>
-                <td th:text="${enroll.course.category.name}">category</td>
+                <td>
+                    <span th:each="category,loop:${enroll.course.categoryList}">
+                        <span th:text="${category.name}"></span>
+                        <span th:if="${!loop.last}">,</span>
+                    </span>
+                </td>
                 <td th:text="${enroll.price}">price</td>
                 <td>
                     <form action="" method="post">
