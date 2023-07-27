@@ -21,7 +21,7 @@ public class Course {
     @Column(name = "course_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @NotNull
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
@@ -38,7 +38,7 @@ public class Course {
     @Max(100)
     private int discount;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(name = "COURSE_CATEGORY",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
