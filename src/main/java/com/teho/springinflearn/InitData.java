@@ -3,25 +3,32 @@ package com.teho.springinflearn;
 import com.teho.springinflearn.domain.Category;
 import com.teho.springinflearn.domain.Course;
 import com.teho.springinflearn.domain.Teacher;
+import com.teho.springinflearn.domain.User;
 import com.teho.springinflearn.repository.CategoryRepository;
 import com.teho.springinflearn.repository.CourseRepository;
 import com.teho.springinflearn.repository.TeacherRepository;
+import com.teho.springinflearn.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
-public class TestDataInit1 {
+public class InitData {
     private final CategoryRepository categoryRepository;
     private final TeacherRepository teacherRepository;
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
     @PostConstruct
     public void dataInit() {
+        User user = new User("teho", "test", "test", "test", 24, "seoul");
+        userRepository.save(user);
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(new Category("spring"));
         categoryList.add(new Category("backend"));
@@ -53,6 +60,7 @@ public class TestDataInit1 {
 
         teacherRepository.saveAll(teacherList);
 
+        log.info("111111111111");
         Teacher kim = teacherRepository.findByName("김영한");
         Teacher inf = teacherRepository.findByName("인프런");
         Teacher free = teacherRepository.findByName("널널한 개발자");
@@ -63,7 +71,7 @@ public class TestDataInit1 {
         Teacher jo = teacherRepository.findByName("조코딩");
         Teacher camp = teacherRepository.findByName("코드캠프");
         Teacher taewon = teacherRepository.findByName("김태원");
-
+        log.info("222222222222222");
         List<Course> courseList = new ArrayList<>();
         courseList.add(new Course(kim, "스프링 핵심 원리 - 기본편", 88000, 25));
         courseList.add(new Course(kim, "스프링 핵심 원리 - 고급편", 121000, 25));
@@ -83,6 +91,7 @@ public class TestDataInit1 {
         courseList.add(new Course(taewon, "자바(JAVA) 알고리즘 문제풀이 입문: 코딩테스트 대비", 77000, 0));
         courseList.add(new Course(inf, "프로그래밍 시작하기 : 파이썬 입문 (Inflearn Original)", 33000, 0));
         courseList.add(new Course(inf, "우리를 위한 프로그래밍 : 파이썬 중급 (Inflearn Original)", 55000, 0));
+        log.info("3333333333333333");
         courseRepository.saveAll(courseList);
 
     }
