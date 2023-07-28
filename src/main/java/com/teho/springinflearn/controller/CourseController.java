@@ -52,7 +52,7 @@ public class CourseController {
             courseList = courseService.showAllCourse();
 
         } else {
-            courseList = courseService.findCoursesByCategory(keyword);
+            courseList = courseService.showCoursesByKeyword(keyword);
         }
         for (Course course : courseList) {
             int price = course.getPrice();
