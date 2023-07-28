@@ -48,9 +48,9 @@ php로 개발할 때는 Category와 Course가 다대다 양방향이였지만 �
 
     - DB에서 데이터 꺼냈을 때 null일 경우 체크하는 과정 작성 후 error 페이지로 이동하기 완료.
 - 23-07-27
-    - Course와 Category가 다대일 관계여서 course가 1개의 카테고리밖에 갖을 수 없던 문제 @ManyToMany와 @JoinTable 사용해 다대다로 변경
+    - Course와 Category가 다대일 관계여서 course가 1개의 카테고리밖에 갖을 수 없던 문제 @ManyToMany와 @JoinTable 사용해 다대다로 변경.
 - 23-07-28
-    - findAllByXXXContaing이용해서 일부분 입력해도 검색 가능하게 수정. ex) spring으로 검색해야 나오던 결과들 sp만 입력해도 검색 가능!
+    - findAllByXXXContaing이용해서 일부분 입력해도 검색 가능하게 수정. ex) spring으로 검색해야 나오던 결과들 sp만 입력해도 검색 가능.
 
 <!--
 # h1
