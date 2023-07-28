@@ -36,22 +36,20 @@ php로 개발할 때는 Category와 Course가 다대다 양방향이였지만 �
 ### 🗣️ 수정 일지
 
 - 23-07-02 ~ 23-07-12
-
     - [베타 버전 완성](https://te-ho.tistory.com/53)
 - 23-07-14
-
     - [@Column(nullable = false)를 @NotNull로 수정](https://te-ho.tistory.com/54)
 - 23-07-20
-
     - [필요없는 @Transactional 제거](https://te-ho.tistory.com/59)
 - 23-07-25
-
     - Repository에서 직접 사용하던 메서드 Servcie에서 사용하도록 바꾸기.
 
     - TempController에 임시로 작성했던 코드들 모듈화하여 기능에 맞는 Controller로 옮기기.
 
     - DB에서 데이터 꺼냈을 때 null일 경우 체크하는 과정 작성 후 error 페이지로 이동하기 완료.
-
+- 23-07-27
+    - Course와 Category가 다대일 관계여서 course가 1개의 카테고리밖에 갖을 수 없던 문제 @ManyToMany와 @JoinTable 사용해 다대다로 변경
+  
 <!--
 # h1
 ## h2 (여기까지만 밑줄 생김)
