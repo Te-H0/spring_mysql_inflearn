@@ -54,6 +54,12 @@ public class CourseController {
         } else {
             courseList = courseService.findCoursesByCategory(keyword);
         }
+        for (Course course : courseList) {
+            int price = course.getPrice();
+            int discount = course.getDiscount();
+            course.setPrice((int) (price * (1 - discount * 0.01)));
+//            course.price * ( 1 -course.discount * 0.01 )
+        }
         model.addAttribute("courses", courseList);
 
 

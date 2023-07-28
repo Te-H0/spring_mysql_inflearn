@@ -46,7 +46,7 @@
                         <span th:if="${!loop.last}">,</span>
                     </span>
                 </td>
-                <td th:text="${course.price * ( 1 -course.discount * 0.01 )}">price</td>
+                <td th:text="${course.price}">price</td>
                 <td>
                     <form action="/course/enroll" method="post">
                         <input name="courseId" th:value="${course.id}" type="hidden">
