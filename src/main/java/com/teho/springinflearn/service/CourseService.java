@@ -18,7 +18,6 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class CourseService {
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
