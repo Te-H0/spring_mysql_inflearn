@@ -5,6 +5,7 @@ import com.teho.springinflearn.domain.Course;
 import com.teho.springinflearn.domain.Enrollment;
 import com.teho.springinflearn.domain.User;
 import com.teho.springinflearn.repository.CategoryRepository;
+import com.teho.springinflearn.service.CategoryService;
 import com.teho.springinflearn.service.CourseService;
 import com.teho.springinflearn.service.EnrollService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ import java.util.List;
 public class CourseController {
     private final CourseService courseService;
     private final EnrollService enrollService;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     @GetMapping
     public String showCourse(@RequestParam(defaultValue = "all") String keyword, Model model, HttpServletRequest request) {
@@ -43,7 +44,7 @@ public class CourseController {
         }
 
         model.addAttribute("user", loginUser);
-        List<Category> categoryList = categoryRepository.findAll();
+        List<Category> categoryList = categoryService.getAllCategories();
         model.addAttribute("categoryList", categoryList);
 
         List<Course> courseList;
