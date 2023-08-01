@@ -42,7 +42,7 @@ php로 개발할 때는 Category와 Course가 다대다 양방향이였지만 �
 - 23-07-20
     - [필요없는 @Transactional 제거](https://te-ho.tistory.com/59)
 - 23-07-25
-    - Repository에서 직접 사용하던 메서드 Servcie에서 사용하도록 바꾸기.
+    - [Repository에서 직접 사용하던 메서드 Servcie에서 사용하도록 바꾸기.](https://te-ho.tistory.com/62)
 
     - TempController에 임시로 작성했던 코드들 모듈화하여 기능에 맞는 Controller로 옮기기.
 
