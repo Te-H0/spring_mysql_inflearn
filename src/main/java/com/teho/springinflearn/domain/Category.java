@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,7 +22,7 @@ public class Category {
     private String name;
 
     @ManyToMany(mappedBy = "categoryList")
-    private List<Course> courseList = new ArrayList<>();
+    private Set<Course> courseList = new HashSet<>();
 
     public Category(String name) {
         this.name = name;

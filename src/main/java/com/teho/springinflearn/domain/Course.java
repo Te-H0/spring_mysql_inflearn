@@ -10,7 +10,9 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,7 +44,7 @@ public class Course {
     @JoinTable(name = "COURSE_CATEGORY",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categoryList = new ArrayList<>();
+    private Set<Category> categoryList = new HashSet<>();
 
     public Course(Teacher teacher, String title, int price, int discount) {
         this.teacher = teacher;
