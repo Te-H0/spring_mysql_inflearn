@@ -8,26 +8,26 @@
     <div class="content">
         <div th:replace="~{nav.html :: navFragment}"></div>
         <div id="main-content" style="margin-top:10vh">
-            <form action="" class=" row g-3" method="post">
+            <form action="" class=" row g-3" method="post" th:object="${user}">
                 <div class="col-12">
                     <label class="form-label" for="name">이름</label>
-                    <input autocomplete="off" class="form-control" name="name" required
-                           th:value="${user.name}" type="text">
+                    <input autocomplete="off" class="form-control" required th:field="*{name}"
+                           type="text">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="login_id">아이디</label>
-                    <input autocomplete="off" class="form-control" name="login_id" readonly
-                           required th:value="${user.loginId}" type="text">
+                    <input autocomplete="off" class="form-control" readonly required
+                           th:field="*{loginId}" type="text">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="pw">비밀 번호</label>
-                    <input autocomplete="off" class="form-control" name="pw" readonly
-                           required th:value="${user.pw}" type="password">
+                    <input autocomplete="off" class="form-control" required
+                           th:field="*{pw}">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="email">이메일</label>
-                    <input autocomplete="off" class="form-control" name="email" required
-                           th:value="${user.email}" type="text">
+                    <input autocomplete="off" class="form-control" required th:field="*{email}"
+                           type="text">
                 </div>
 
 

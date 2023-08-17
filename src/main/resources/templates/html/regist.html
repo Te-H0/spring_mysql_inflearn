@@ -7,36 +7,36 @@
 <div class="container">
     <div class="content">
         <div id="main-content" style="margin-top:10vh">
-            <form action="" class=" row g-3" method="post">
+            <form action="" class=" row g-3" method="post" th:object="${user}">
                 <div class="col-12">
                     <label class="form-label" for="name">이름</label>
-                    <input autocomplete="off" class="form-control" name="name" placeholder="이름" required
+                    <input autocomplete="off" class="form-control" placeholder="이름" required th:field="*{name}"
                            type="text">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="login_id">아이디</label>
-                    <input autocomplete="off" class="form-control" name="login_id" placeholder="이메일" required
+                    <input autocomplete="off" class="form-control" placeholder="아이디" required th:field="*{login_id}"
                            type="text">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="pw">비밀 번호</label>
-                    <input autocomplete="off" class="form-control" name="pw" placeholder="이메일" required
+                    <input autocomplete="off" class="form-control" placeholder="이메일" required th:field="*{pw}"
                            type="password">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="email">이메일</label>
-                    <input autocomplete="off" class="form-control" name="email" placeholder="이메일" required
+                    <input autocomplete="off" class="form-control" placeholder="이메일" required th:field="*{email}"
                            type="text">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="age">나이</label>
-                    <input autocomplete="off" class="form-control" name="age" placeholder="나이" required
+                    <input autocomplete="off" class="form-control" placeholder="나이" required th:field="*{age}"
                            type="number">
                 </div>
 
                 <div class="col-12">
                     <label class="form-label" for="address">주소</label>
-                    <input autocomplete="off" class="form-control" name="address" placeholder="주소" required
+                    <input autocomplete="off" class="form-control" placeholder="주소" required th:field="*{address}"
                            type="text">
                 </div>
                 <div class="col-12">

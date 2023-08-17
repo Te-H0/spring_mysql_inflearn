@@ -1,8 +1,10 @@
 package com.teho.springinflearn.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class UserRegistForm {
 
     private String name;
@@ -11,16 +13,5 @@ public class UserRegistForm {
     private String email;
     private Integer age;
     private String address;
-
-    public UserRegistForm(String name, String login_id, String pw,
-                          String email, Integer age, String address) {
-        this.name = name;
-        this.login_id = login_id;
-        this.pw = pw;
-        this.email = email;
-        this.age = age;
-        this.address = address;
-    }
-
 
 }

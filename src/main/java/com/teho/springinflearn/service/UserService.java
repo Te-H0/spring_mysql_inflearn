@@ -71,7 +71,7 @@ public class UserService {
         user.setName(userUpdateForm.getName());
         user.setEmail(userUpdateForm.getEmail());
         user.setAddress(userUpdateForm.getAddress());
-
+        user.setPw(userUpdateForm.getPw());
         return user;
     }
 

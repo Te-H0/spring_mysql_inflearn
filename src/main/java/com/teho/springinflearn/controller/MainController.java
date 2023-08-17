@@ -21,11 +21,12 @@ public class MainController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String test(@RequestParam(required = false) String loginUser, Model model, HttpServletRequest request) {
+    public String test(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             return "redirect:/main";
         }
+        model.addAttribute("user", new UserLoginForm());
         return "/html/login.html";
     }
 

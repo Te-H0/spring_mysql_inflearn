@@ -26,13 +26,15 @@ public class UserController {
     private final UserService userService;
     private final EnrollService enrollService;
 
-    @RequestMapping("/new")
-    public String reigst() {
+    @GetMapping("/new")
+    public String reigst(Model model) {
+        model.addAttribute("user", new UserRegistForm());
         return "/html/regist.html";
     }
 
     @PostMapping("/new")
     public String registUser(@ModelAttribute UserRegistForm userRegistForm) {
+        log.info("회원가입 왜안돼? {}", userRegistForm.getAge());
         userService.join(userRegistForm);
         return "redirect:/login";
     }
