@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +35,14 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String registUser(@ModelAttribute UserRegistForm userRegistForm) {
-        log.info("회원가입 왜안돼? {}", userRegistForm.getAge());
+    public String registUser(@Validated @ModelAttribute("user") UserRegistForm userRegistForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            log.info("error = {}", bindingResult);
+            return "/html/regist.html";
+        }
+
         userService.join(userRegistForm);
         return "redirect:/login";
     }
@@ -54,23 +62,41 @@ public class UserController {
         return "/html/myinfo.html";
     }
 
-    @RequestMapping("/profile")
+    @GetMapping("/profile")
     public String editProfile(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
+        log.info("1");
+
         if (session == null) {
             return "redirect:/login";
         }
+        log.info("2");
+
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) {
             return "/html/login.html";
         }
-        model.addAttribute("user", loginUser);
+        UserUpdateForm userUpdateForm = new UserUpdateForm();
+        userUpdateForm.setName(loginUser.getName());
+        userUpdateForm.setLogin_id(loginUser.getLoginId());
+        userUpdateForm.setPw(loginUser.getPw());
+        userUpdateForm.setAddress(loginUser.getAddress());
+        userUpdateForm.setEmail(loginUser.getEmail());
+
+        log.info("3");
+
+        model.addAttribute("user", userUpdateForm);
+        log.info("4");
 
         return "/html/editProfile.html";
     }
 
     @PostMapping("/profile")
-    public String updateProfile(HttpServletRequest request, @ModelAttribute UserUpdateForm user) {
+    public String updateProfile(HttpServletRequest request, @Validated @ModelAttribute("user") UserUpdateForm user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.info("error = {}", bindingResult);
+            return "/html/editProfile.html";
+        }
         HttpSession session = request.getSession(false);
         if (session == null) {
             return "redirect:/login";

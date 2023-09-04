@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -31,8 +33,11 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute UserLoginForm userLoginForm, HttpServletRequest request, Model model) {
-        log.info("여기!!!!!");
+    public String loginUser(@Validated @ModelAttribute("user") UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request, Model model) {
+        if (bindingResult.hasErrors()) {
+            log.info("error = {}", bindingResult);
+            return "/html/login.html";
+        }
 
         Optional<User> loginUser = Optional.ofNullable(userService.login(userLoginForm));
         if (loginUser.isPresent()) {

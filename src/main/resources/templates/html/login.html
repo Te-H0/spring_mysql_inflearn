@@ -9,10 +9,10 @@
         <div id="login-content">
             <h1>Login</h1>
             <form action="" id="login" method="post" th:object="${user}">
-                <div><input autocomplete='off' placeholder="아이디" required style="width:20vw; margin-bottom:10px ;"
-                            th:field="*{login_id}" type="text"></div>
-                <input autocomplete='off' placeholder="비밀번호" required style="width:20vw; margin-bottom:10px ;"
-                       th:field="*{pw}" type="text">
+                <div><input autocomplete='off' placeholder="아이디" style="width:20vw; margin-bottom:10px ;"
+                            th:errorClass="login-field-error" th:field="*{login_id}" type="text"></div>
+                <input autocomplete='off' placeholder="비밀번호" style="width:20vw; margin-bottom:10px ;"
+                       th:errorClass="login-field-error" th:field="*{pw}" type="text">
             </form>
             <button class="btn btn-primary" form="login" style="margin-bottom:10px ;width:20vw"
                     type="submit">로그인

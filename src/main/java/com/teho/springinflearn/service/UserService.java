@@ -48,7 +48,6 @@ public class UserService {
 
         if (userLoginForm.getPw().equals(loginUser.getPw())) {
             log.info("비번일치했어!!");
-            userLoginForm.setName(loginUser.getName());
             return loginUser;
         } else {
             log.info("비밀번호 불일치!!");

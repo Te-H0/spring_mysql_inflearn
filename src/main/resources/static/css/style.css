@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 .container {
     display: flex;
     width: 100vw;
@@ -104,4 +105,13 @@ td {
 
 a {
     text-decoration: none;
+}
+
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.login-field-error {
+    border-color: red;
 }
