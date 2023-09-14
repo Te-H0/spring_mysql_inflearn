@@ -22,22 +22,25 @@ public class MainController {
 
     private final UserService userService;
 
-    @GetMapping("/login")
-    public String test(Model model, HttpServletRequest request) {
+    @GetMapping("/")
+    public String main(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            return "redirect:/main";
+            User loginUser = (User) session.getAttribute("loginUser");
+            model.addAttribute("user", loginUser);
+            return "/html/main.html";
         }
         model.addAttribute("user", new UserLoginForm());
         return "/html/login.html";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public String loginUser(@Validated @ModelAttribute("user") UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request, Model model) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult);
             return "/html/login.html";
         }
+
 
         Optional<User> loginUser = Optional.ofNullable(userService.login(userLoginForm));
         if (loginUser.isPresent()) {
@@ -49,38 +52,38 @@ public class MainController {
             log.info("1");
             session.setAttribute("loginUser", user);
             log.info("2");
-            session.setMaxInactiveInterval(30000);
-            log.info("3");
             model.addAttribute("user", user);
 
 
             log.info("로그인 성공해서 메인페이지 이동중");
-            return "redirect:/main";
+            return "redirect:/";
 
         } else {
+            bindingResult.reject("wrongUserInfo", "유저 정보를 다시 확인해라");
+            log.info("bindingresult in login =>{}", bindingResult);
             log.info("User Null이여서 다시 로그인 페이지!");
             return "/html/login.html";
         }
 
     }
 
-    @GetMapping("/main")
-    public String main(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
-
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
-        log.info("user의 이름 입력전!!!!!!!!!!!!!!!!!! 로그인 성공해서 메인페이지 이동중");
-
-        model.addAttribute("user", loginUser);
-        log.info("user의 이름 {}", loginUser.getName());
-        return "/html/main.html";
-    }
+//    @GetMapping("/main")
+//    public String main(HttpServletRequest request, Model model) {
+//        HttpSession session = request.getSession(false);
+//        if (session == null) {
+//            return "redirect:/login";
+//        }
+//        User loginUser = (User) session.getAttribute("loginUser");
+//
+//        if (loginUser == null) {
+//            return "/html/login.html";
+//        }
+//        log.info("user의 이름 입력전!!!!!!!!!!!!!!!!!! 로그인 성공해서 메인페이지 이동중");
+//
+//        model.addAttribute("user", loginUser);
+//        log.info("user의 이름 {}", loginUser.getName());
+//        return "/html/main.html";
+//    }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -89,7 +92,7 @@ public class MainController {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/errorPage")

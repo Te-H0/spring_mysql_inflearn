@@ -8,7 +8,11 @@
     <div class="content">
         <div id="login-content">
             <h1>Login</h1>
+
             <form action="" id="login" method="post" th:object="${user}">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+                </div>
                 <div><input autocomplete='off' placeholder="아이디" style="width:20vw; margin-bottom:10px ;"
                             th:errorClass="login-field-error" th:field="*{login_id}" type="text"></div>
                 <input autocomplete='off' placeholder="비밀번호" style="width:20vw; margin-bottom:10px ;"
