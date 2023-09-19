@@ -14,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -32,16 +29,7 @@ public class CourseController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public String showCourse(@RequestParam(defaultValue = "all") String keyword, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
-
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
+    public String showCourse(@SessionAttribute(required = false, name = "loginUser") User loginUser, @RequestParam(defaultValue = "all") String keyword, Model model) {
 
         model.addAttribute("user", loginUser);
         List<Category> categoryList = categoryService.getAllCategories();
@@ -68,15 +56,8 @@ public class CourseController {
     }
 
     @PostMapping("/enroll")
-    public String enroll(@RequestParam Long courseId, @RequestParam double price, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
+    public String enroll(@SessionAttribute(required = false, name = "loginUser") User loginUser, @RequestParam Long courseId, @RequestParam double price, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+
         Course course = courseService.getCourseById(courseId);
         if (course == null)
             return "redirect:/errorPage";
@@ -100,15 +81,7 @@ public class CourseController {
     }
 
     @GetMapping("/enrollResult")
-    public String enrollResult(@RequestParam String message, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
+    public String enrollResult(@SessionAttribute(required = false, name = "loginUser") User loginUser, @RequestParam String message, Model model, HttpServletRequest request) {
 
         model.addAttribute("user", loginUser);
         model.addAttribute("message", message);

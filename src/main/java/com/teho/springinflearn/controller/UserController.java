@@ -44,7 +44,7 @@ public class UserController {
         }
 
         userService.join(userRegistForm);
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/list")
@@ -55,27 +55,14 @@ public class UserController {
     }
 
     @GetMapping("/myMenu")
-    public String info(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        User loginUser = (User) session.getAttribute("loginUser");
+    public String info(@SessionAttribute(required = false, name = "loginUser") User loginUser, HttpServletRequest request, Model model) {
         model.addAttribute("user", loginUser);
         return "/html/myinfo.html";
     }
 
     @GetMapping("/profile")
-    public String editProfile(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        log.info("1");
+    public String editProfile(@SessionAttribute(required = false, name = "loginUser") User loginUser, Model model) {
 
-        if (session == null) {
-            return "redirect:/login";
-        }
-        log.info("2");
-
-        User loginUser = (User) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
         UserUpdateForm userUpdateForm = new UserUpdateForm();
         userUpdateForm.setName(loginUser.getName());
         userUpdateForm.setLogin_id(loginUser.getLoginId());
@@ -92,47 +79,34 @@ public class UserController {
     }
 
     @PostMapping("/profile")
-    public String updateProfile(HttpServletRequest request, @Validated @ModelAttribute("user") UserUpdateForm user, BindingResult bindingResult) {
+    public String updateProfile(@SessionAttribute(required = false, name = "loginUser") User loginUser, HttpServletRequest request, @Validated @ModelAttribute("user") UserUpdateForm user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult);
             return "/html/editProfile.html";
         }
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
         User nowUser = userService.getUserById(loginUser.getId());
         if (nowUser == null)
             return "redirect:/errorPage";
-
         log.info("update할 유저의 정보 {}", loginUser.getId());
 
         User updatedUser = userService.updateUser(user, nowUser);
 
+        HttpSession session = request.getSession(false);
         session.setAttribute("loginUser", updatedUser);
         return "redirect:/user/myMenu";
     }
 
     @GetMapping("/courses")
-    public String myCourse(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
-        model.addAttribute("user", loginUser);
+    public String myCourse(@SessionAttribute(required = false, name = "loginUser") User loginUser, Model model) {
 
+        model.addAttribute("user", loginUser);
         List<Enrollment> enrollList = enrollService.getEnrollsByUser(loginUser);
         model.addAttribute("enrollments", enrollList);
         return "/html/myCourse.html";
     }
 
     @PostMapping("/courses")
-    public String cancelCourse(@RequestParam Long enrollId, HttpServletRequest request, Model model) {
+    public String cancelCourse(@RequestParam Long enrollId) {
         Enrollment enroll = enrollService.getEnrollById(enrollId);
         if (enroll == null)
             return "redirect:/errorPage";

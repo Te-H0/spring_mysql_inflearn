@@ -24,7 +24,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(@SessionAttribute(name = "loginUser", required = false) User loginUser, Model model,
-                       @ModelAttribute(name = "user") UserLoginForm userLoginForm, HttpServletRequest request) {
+                       @ModelAttribute(name = "user") UserLoginForm userLoginForm) {
         if (loginUser != null) {
             model.addAttribute("user", loginUser);
             return "/html/main.html";
@@ -33,7 +33,8 @@ public class MainController {
     }
 
     @PostMapping("/")
-    public String loginUser(@Validated @ModelAttribute("user") UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request, Model model) {
+    public String loginUser(@Validated @ModelAttribute("user") UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request, Model model,
+                            @RequestParam(defaultValue = "/") String redirectURL) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult);
             return "/html/login.html";
@@ -54,7 +55,7 @@ public class MainController {
 
 
             log.info("로그인 성공해서 메인페이지 이동중");
-            return "redirect:/";
+            return "redirect:" + redirectURL;
 
         } else {
             bindingResult.reject("wrongUserInfo", "유저 정보를 다시 확인해라");
@@ -94,17 +95,8 @@ public class MainController {
     }
 
     @GetMapping("/errorPage")
-    public String errorPage(HttpServletRequest request, Model model) {
+    public String errorPage(@SessionAttribute(required = false, name = "loginUser") User loginUser, Model model) {
         log.info("ERROR 페이지 접근.");
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        User loginUser = (User) session.getAttribute("loginUser");
-
-        if (loginUser == null) {
-            return "/html/login.html";
-        }
         log.info("user의 이름 입력전!!!!!!!!!!!!!!!!!! 로그인 성공해서 메인페이지 이동중");
 
         model.addAttribute("user", loginUser);
