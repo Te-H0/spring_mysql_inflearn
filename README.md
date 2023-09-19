@@ -55,7 +55,10 @@ php로 개발할 때는 Category와 Course가 다대다 양방향이였지만 �
 - 23-08-17
     - [타임리프 th:object, th:field 사용하여 form 수정.](https://te-ho.tistory.com/67)
 - 23-09-04
-    - Bean Validation, BindingResult, messages 사용하여 검증 사용.
+    - [Bean Validation, BindingResult, messages 사용하여 검증 사용.](https://te-ho.tistory.com/69)
+- 23-09-18 ~ 23-09-19
+    - 로그인 시 없는 정보일 경우 global error 처리
+    - @SessionAttribute 사용, Interceptor 사용하여 로그인 인증 -> 반복되던 코드 제거
 
 <!--
 # h1
