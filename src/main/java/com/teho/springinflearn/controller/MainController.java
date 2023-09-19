@@ -23,14 +23,12 @@ public class MainController {
     private final UserService userService;
 
     @GetMapping("/")
-    public String main(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            User loginUser = (User) session.getAttribute("loginUser");
+    public String main(@SessionAttribute(name = "loginUser", required = false) User loginUser, Model model,
+                       @ModelAttribute(name = "user") UserLoginForm userLoginForm, HttpServletRequest request) {
+        if (loginUser != null) {
             model.addAttribute("user", loginUser);
             return "/html/main.html";
         }
-        model.addAttribute("user", new UserLoginForm());
         return "/html/login.html";
     }
 
